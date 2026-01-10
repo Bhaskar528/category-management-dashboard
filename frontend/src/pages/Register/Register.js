@@ -1,33 +1,43 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./Register.css";
 
-function Login() {
+function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        { email, password }
-      );
+      await axios.post("http://localhost:5000/api/auth/register", {
+        name,
+        email,
+        password,
+      });
 
-      localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
-    } catch (err) {
-      alert("Invalid email or password");
+      alert("User registered successfully");
+      navigate("/");
+    } catch (error) {
+      alert("User already exists");
     }
   };
 
   return (
     <div className="login-container">
-      <form className="login-card" onSubmit={handleLogin}>
-        <h2>Login</h2>
+      <form className="login-card" onSubmit={handleRegister}>
+        <h2>Sign Up</h2>
+
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
         <input
           type="email"
@@ -45,15 +55,10 @@ function Login() {
           required
         />
 
-        <button type="submit">Login</button>
-
-        <p>
-          Don’t have an account?{" "}
-          <span onClick={() => navigate("/register")}>Sign up</span>
-        </p>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Register;
