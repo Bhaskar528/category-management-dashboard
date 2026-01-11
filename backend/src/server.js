@@ -8,7 +8,7 @@ const app = express();
 connectDB();
 
 app.use(cors({
-    origin:"https://category-management-dashboard-jyz6.vercel.app/"
+    origin:["https://category-management-dashboard-jyz6.vercel.app/"]
 }));
 app.use(express.json());
 app.use("/uploads", express.static("src/uploads"));
