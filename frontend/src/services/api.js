@@ -55,15 +55,18 @@
   // }
 // ];
 
-
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API = axios.create({
+  baseURL: process.env.REACT_APP_BACKEND_URL,
+});
 
-export const loginUser = (data) => {
-  return axios.post(`${API_URL}/api/auth/login`, data);
-};
+API.interceptors.request.use((req) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `Bearer ${token}`;
+  }
+  return req;
+});
 
-export const registerUser = (data) => {
-  return axios.post(`${API_URL}/api/auth/register`, data);
-};
+export default API;
