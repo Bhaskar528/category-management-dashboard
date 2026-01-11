@@ -58,16 +58,12 @@
 
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "http://localhost:5000/api"
-});
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-API.interceptors.request.use((req) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    req.headers.Authorization = `Bearer ${token}`;
-  }
-  return req;
-});
+export const loginUser = (data) => {
+  return axios.post(`${API_URL}/api/auth/login`, data);
+};
 
-export default API;
+export const registerUser = (data) => {
+  return axios.post(`${API_URL}/api/auth/register`, data);
+};
