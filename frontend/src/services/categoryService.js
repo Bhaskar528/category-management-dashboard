@@ -1,15 +1,23 @@
-import axios from "axios";
+// import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/categories";
+// const API_URL = "http://localhost:5000/api/categories";
+
+// export const getCategories = async () => {
+//   const token = localStorage.getItem("token");
+
+//   const response = await axios.get(API_URL, {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   });
+
+//   return response.data;
+// };
+
+
+import API from "./api";
 
 export const getCategories = async () => {
-  const token = localStorage.getItem("token");
-
-  const response = await axios.get(API_URL, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  return response.data;
+  const res = await API.get("/api/categories");
+  return res.data;
 };
