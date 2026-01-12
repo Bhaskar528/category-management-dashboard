@@ -30,3 +30,6 @@
   color: white;
   border: none;
 }
+.login-btn{
+  cursor: pointer;
+}
